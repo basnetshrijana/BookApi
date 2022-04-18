@@ -1,3 +1,6 @@
+using BookApi.Data;
+using BookApi.Entities;
+
 namespace BookApi.Repository
 {
     public class UnitofWork : IUnitofWork
@@ -26,7 +29,7 @@ namespace BookApi.Repository
             return _context.SaveChanges();
 
         }
-        public async Task<int> SaveChanges()
+        public async Task<int> SaveChange()
         {
             return await _context.SaveChangesAsync();
         }
@@ -40,6 +43,11 @@ namespace BookApi.Repository
                 }
             }
             this.disposed=true;
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

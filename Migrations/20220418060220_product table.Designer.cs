@@ -4,6 +4,7 @@ using BookApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220418060220_product table")]
+    partial class producttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,47 +44,6 @@ namespace BookApi.Migrations
                     b.HasKey("BookId");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("BookApi.Entities.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR(50)")
-                        .HasColumnName("created_by");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("DATETIME")
-                        .HasColumnName("created_on");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR()50")
-                        .HasColumnName("name");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR(50)")
-                        .HasColumnName("updated_by");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("DATETIME")
-                        .HasColumnName("updated_on");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BookApi.Entities.Product", b =>
