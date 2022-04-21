@@ -1,70 +1,41 @@
 using System.Linq.Expressions;
 using BookApi.Data;
 using BookApi.Entities;
+using BookApi.Models.RequestModel;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookApi.Repository
 {
-    public class BookRepository : GenericRepository<Book>, IBookRepository
+    public class BookRepository: Repository<Book>, IBookRepository
     {
-        private readonly ApplicationDbContext _context;
+        public BookRepository(ApplicationDbContext dbContext) : base(dbContext)
+        {
+        }
 
-        private readonly ILogger<BookRepository> _logger;
-
-    
-         public  Task<IList<Book>> GetAllAsync()
+        public void CreateBook(Book book)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IList<Book>> GetAllAsync(Expression<Func<Book, bool>> predicate = null, Func<IQueryable<Book>, IOrderedQueryable<Book>> orderBy = null, Func<IQueryable<Book>, IIncludableQueryable<Book, object>> include = null, bool disableTracking = true, bool ignoreQueryFilters = false)
+        public void DeleteBook(Guid BookId)
         {
             throw new NotImplementedException();
         }
 
-        public Book Insert(Book entity)
+        public Task<IList<Book>> GetAllBooks()
         {
             throw new NotImplementedException();
         }
 
-        public ValueTask<EntityEntry<Book>> InsertAsync(Book entity, CancellationToken cancellationToken = default)
+        public Book GetBook(Guid BookId)
         {
             throw new NotImplementedException();
         }
 
-        public void Insert(IEnumerable<Book> entities)
+        public void UpdateBook(BookRequestModel model, Guid BookId)
         {
             throw new NotImplementedException();
         }
-
-        public Task InsertAsync(IEnumerable<Book> entities, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Book entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(IEnumerable<Book> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Book entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(IEnumerable<Book> entities)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class GenericRepository<T>
-    {
     }
 }

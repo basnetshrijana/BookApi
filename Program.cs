@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using BookApi.Data;
-
+using FluentValidation.AspNetCore;
+using BookApi.Models.RequestModel;
+using BookApi.Validator;
+using FluentValidation;
+using BookApi.Services.Implementation;
+using BookApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +15,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddFluentValidation();
+builder.Services.AddTransient<IValidator<BookRequestModel>, BookValidator>();
+builder.Services.AddTransient<IBookServices , BookServices>();
+builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<IUnitofWork, UnitofWork>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

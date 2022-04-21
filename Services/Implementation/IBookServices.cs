@@ -1,10 +1,15 @@
+using BookApi.Models.RequestModel;
 using BookApi.Models.ResponseModel;
 
 namespace BookApi.Services.Implementation
 {
     public interface IBookServices
     {
-        Task<BookResponseModel> AddBookAsync(BookResponseModel model, Guid BookId);
-        Task<IList<BookResponseModel>> GetBookAsync(Guid BookId,string BookTitle,string BookAuthor);
+        Task<BookResponseModel> AddBookAsync(BookRequestModel model);
+        Task<IList<BookResponseModel>> GetBookAsync();
+
+        Task<BookResponseModel> CreateBookAsync(BookResponseModel model);
+        Task UpdateBookAsync(BookRequestModel model, Guid BookId);
+        Task DeleteBookAsync(Guid BookId);
     }
 }

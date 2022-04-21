@@ -6,7 +6,7 @@ namespace BookApi.Repository
 {
     public interface IRepository <TEntity> where TEntity:class
     {
-        Task<IList<TEntity>> GetAllAsync();
+        Task<IList<TEntity>> GetAllAsync(Entities.Book books);
 
         Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate=null,
                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy=null,

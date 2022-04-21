@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "v2GvqV0f+l6CcmQ6A+FYPb4ByJKVZhrAePcInb7Kk3QDP0yatuPbfK+0/k1TB1HBO6+UPCAuC/wh2UBAh4ajRw==",
+  "dgSpecHash": "qyRJfD1YaVz0g2l3yevPaL7SIhxJa0kknLiDYoqTImIMAarAtAIRk2n/5888p4JSFJWboP6xusnns4CJIO00yw==",
   "success": true,
   "projectFilePath": "C:\\Users\\lenovo\\Desktop\\BookApi\\BookApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lenovo\\.nuget\\packages\\fluentvalidation\\10.4.0\\fluentvalidation.10.4.0.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.4.0\\fluentvalidation.aspnetcore.10.4.0.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.4.0\\fluentvalidation.dependencyinjectionextensions.10.4.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

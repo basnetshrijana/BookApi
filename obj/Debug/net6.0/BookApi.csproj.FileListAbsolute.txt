@@ -59,3 +59,6 @@ C:\Users\lenovo\Desktop\BookApi\obj\Debug\net6.0\BookApi.dll
 C:\Users\lenovo\Desktop\BookApi\obj\Debug\net6.0\ref\BookApi.dll
 C:\Users\lenovo\Desktop\BookApi\obj\Debug\net6.0\BookApi.pdb
 C:\Users\lenovo\Desktop\BookApi\obj\Debug\net6.0\BookApi.genruntimeconfig.cache
+C:\Users\lenovo\Desktop\BookApi\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\lenovo\Desktop\BookApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\lenovo\Desktop\BookApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
