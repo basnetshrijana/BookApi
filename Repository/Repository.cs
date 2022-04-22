@@ -20,54 +20,19 @@ namespace BookApi.Repository
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public void Delete(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(IEnumerable<TEntity> entities)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IList<TEntity>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<IList<TEntity>> GetAllAsync(
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
-            bool disableTracking = true,
-            bool ignoreQueryFilters = false
-        )
+        public virtual void Delete(TEntity entity)
         {
-            IQueryable<TEntity> query = _dbSet;
-            if (disableTracking)
-            {
-                query = query.AsNoTracking();
-            }
-            if (include != null)
-            {
-                query = include(query);
-            }
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-            if (ignoreQueryFilters)
-            {
-                query = query.IgnoreQueryFilters();
-            }
-            if (orderBy != null)
-            {
-                return await orderBy(query).ToListAsync();
-            }
-            else
-            {
-                return await query.ToListAsync();
-            }
+            _dbSet.Remove(entity);
+        }
+
+        public virtual void Delete(IEnumerable<TEntity> entities)
+        {
+            _dbSet.RemoveRange(entities);
         }
 
         public Task<IList<TEntity>> GetAllAsync(Book books)
@@ -75,44 +40,45 @@ namespace BookApi.Repository
             throw new NotImplementedException();
         }
 
+       
+
+        public virtual void Insert(IEnumerable<TEntity> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
+        public virtual ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity)
+        {
+            return _dbSet.AddAsync(entity);
+        }
+
+        public virtual Task InsertAsync(IEnumerable<TEntity> entities)
+        {
+            return _dbSet.AddRangeAsync(entities);
+        }
+
+        public void UpdateAsync(IEnumerable<TEntity> entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
+
+        public virtual void Update(TEntity entity)
+        {
+            _dbSet.Update(entity);
+        }
+
+
         public TEntity Insert(TEntity entity)
         {
-            _dbSet.Add(entity);
-            return entity;
-        }
-
-        public void Insert(IEnumerable<TEntity> entities)
-        {
             throw new NotImplementedException();
         }
 
-        public ValueTask<EntityEntry<TEntity>> InsertAsync(
-            TEntity entity,
-            CancellationToken cancellationToken = default
-        )
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task InsertAsync(
-            IEnumerable<TEntity> entities,
-            CancellationToken cancellationToken = default
-        )
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TEntity entity)
+        public ValueTask<EntityEntry<TEntity>> UpdateAsync(TEntity entity)
         {
             throw new NotImplementedException();
         }
 
         public void Update(IEnumerable<TEntity> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAsync(IEnumerable<TEntity> entities)
         {
             throw new NotImplementedException();
         }

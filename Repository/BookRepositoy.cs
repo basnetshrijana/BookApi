@@ -33,7 +33,12 @@ namespace BookApi.Repository
             throw new NotImplementedException();
         }
 
-        public void UpdateBook(BookRequestModel model, Guid BookId)
+        public string UpdateBook(BookRequestModel model, Guid BookId)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IBookRepository.UpdateBook(BookRequestModel model, Guid BookId)
         {
             throw new NotImplementedException();
         }

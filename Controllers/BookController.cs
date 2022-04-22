@@ -39,7 +39,7 @@ namespace BookApi.Controllers
 
         [HttpPut("{BookId}")]
 
-        public async Task<IActionResult> UpdateBook(Guid BookId, BookRequestModel model)
+        public async Task<IActionResult> UpdateBookAsync( BookRequestModel model,Guid BookId)
         {
              await _bookValidator.ValidateAsync(model,options => options.ThrowOnFailures()).ConfigureAwait(false);
            await _bookService.UpdateBookAsync(model).ConfigureAwait(false);

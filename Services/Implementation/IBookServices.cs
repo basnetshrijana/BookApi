@@ -9,7 +9,7 @@ namespace BookApi.Services.Implementation
         Task<IList<BookResponseModel>> GetBookAsync();
 
         Task<BookResponseModel> CreateBookAsync(BookResponseModel model);
-        Task UpdateBookAsync(BookRequestModel model, Guid BookId);
+        Task<BookResponseModel> UpdateBook(BookResponseModel model, Guid BookId);
         Task DeleteBookAsync(Guid BookId);
     }
 }

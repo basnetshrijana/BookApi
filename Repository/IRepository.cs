@@ -6,25 +6,22 @@ namespace BookApi.Repository
 {
     public interface IRepository <TEntity> where TEntity:class
     {
-        Task<IList<TEntity>> GetAllAsync(Entities.Book books);
+        Task<IList<TEntity>> GetAllAsync();
 
-        Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate=null,
-                        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy=null,
-                        Func<IQueryable<TEntity>,IIncludableQueryable<TEntity,object>> include=null,
-                        bool disableTracking=true,
-                        bool ignoreQueryFilters=false);
+       
 
         TEntity Insert(TEntity entity);
 
-        ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, CancellationToken cancellationToken=default(CancellationToken));
+        ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity);
 
         void Insert(IEnumerable<TEntity> entities);
 
-        Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken=default(CancellationToken));
+        Task InsertAsync(IEnumerable<TEntity> entities);
 
         void Update(TEntity entity);
 
         void Update(IEnumerable<TEntity> entities);
+         ValueTask<EntityEntry<TEntity>> UpdateAsync(TEntity entity);
 
         void Delete(TEntity entity);
 

@@ -52,22 +52,24 @@ namespace BookApi.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task UpdateBookAsync(BookRequestModel model, Guid BookId)
+        public async Task<BookResponseModel> UpdateBookAsync(BookResponseModel model, Guid bookId)
         {
             try
             {
-                var data = _unitOfWork.BookRepository.GetBook(BookId);
+                var data = _unitOfWork.BookRepository.GetBook(bookId);
+            
+
                 if (data != null)
                 {
+            
                     var book = new Book
                     {
-                        BookId = Guid.NewGuid(),
                         BookPrice = model.BookPrice,
                         BookTitle = model.BookTitle,
                         AuthorName = model.AuthorName
                     };
                     _unitOfWork.BookRepository.Update(data);
-                     _unitOfWork.SaveChangesAsync().ConfigureAwait(false);
+                   await _unitOfWork.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
@@ -76,11 +78,11 @@ namespace BookApi.Services.Implementation
             }
         }
 
-        public async Task DeleteBookAsync(Guid BookId)
+        public async Task DeleteBookAsync(Guid bookId)
         {
             try
             {
-                var data = _unitOfWork.BookRepository.GetBook(BookId);
+                var data = _unitOfWork.BookRepository.GetBook(bookId);
                 if (data != null)
                 {
                     _unitOfWork.BookRepository.Delete(data);
@@ -92,6 +94,11 @@ namespace BookApi.Services.Implementation
                 throw new Exception(ex.Message);
                 // TODO
             }
+        }
+
+        public Task<BookResponseModel> UpdateBook(BookResponseModel model, Guid BookId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
