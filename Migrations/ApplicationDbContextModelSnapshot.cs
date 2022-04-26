@@ -46,9 +46,10 @@ namespace BookApi.Migrations
 
             modelBuilder.Entity("BookApi.Entities.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("VARCHAR(50)")
+                        .HasColumnName("id");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -67,7 +68,7 @@ namespace BookApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("VARCHAR()50")
+                        .HasColumnType("VARCHAR(50)")
                         .HasColumnName("name");
 
                     b.Property<string>("UpdatedBy")
@@ -82,7 +83,7 @@ namespace BookApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("BookApi.Entities.Product", b =>
@@ -102,13 +103,16 @@ namespace BookApi.Migrations
                         .HasColumnType("DATETIME")
                         .HasColumnName("created_on");
 
-                    b.Property<string>("Name")
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR(100)")
                         .HasColumnName("name");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("ProductPrice")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("price");
 

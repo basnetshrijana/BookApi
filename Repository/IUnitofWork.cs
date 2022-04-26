@@ -7,5 +7,6 @@ namespace BookApi.Repository
         int SaveChanges();
         
         IBookRepository BookRepository { get; }
+        IProductRepository ProductRepository{get;}
     }
 }

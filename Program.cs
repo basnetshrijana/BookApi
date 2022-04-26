@@ -17,8 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddFluentValidation();
 builder.Services.AddTransient<IValidator<BookRequestModel>, BookValidator>();
+builder.Services.AddTransient<IValidator<ProductRequestModel>, ProductValidator>();
 builder.Services.AddTransient<IBookServices , BookServices>();
+builder.Services.AddTransient<IProductServices, ProductServices>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddTransient<IUnitofWork, UnitofWork>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

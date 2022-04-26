@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using BookApi.Data;
 using BookApi.Entities;
 using BookApi.Models.RequestModel;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -9,38 +10,15 @@ namespace BookApi.Repository
 {
     public class BookRepository: Repository<Book>, IBookRepository
     {
+        private readonly ApplicationDbContext _context;
         public BookRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
+            _context=dbContext;
         }
 
-        public void CreateBook(Book book)
+        public async Task<Book> GetBook(Guid Id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteBook(Guid BookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IList<Book>> GetAllBooks()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Book GetBook(Guid BookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string UpdateBook(BookRequestModel model, Guid BookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IBookRepository.UpdateBook(BookRequestModel model, Guid BookId)
-        {
-            throw new NotImplementedException();
+           return await _context.Books.FirstOrDefaultAsync(x => x.BookId == Id).ConfigureAwait(false);
         }
     }
 }

@@ -34,14 +34,6 @@ namespace BookApi.Repository
         {
             _dbSet.RemoveRange(entities);
         }
-
-        public Task<IList<TEntity>> GetAllAsync(Book books)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
         public virtual void Insert(IEnumerable<TEntity> entities)
         {
             _dbSet.AddRange(entities);
@@ -57,30 +49,21 @@ namespace BookApi.Repository
             return _dbSet.AddRangeAsync(entities);
         }
 
-        public void UpdateAsync(IEnumerable<TEntity> entities)
-        {
-            _dbSet.UpdateRange(entities);
-        }
 
         public virtual void Update(TEntity entity)
         {
             _dbSet.Update(entity);
         }
 
+        public void Update(IEnumerable<TEntity> entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
 
         public TEntity Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+           return _dbSet.Add(entity).Entity;
         }
 
-        public ValueTask<EntityEntry<TEntity>> UpdateAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(IEnumerable<TEntity> entities)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

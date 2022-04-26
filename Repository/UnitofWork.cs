@@ -13,10 +13,14 @@ namespace BookApi.Repository
 
          public IBookRepository BookRepository{get;}
 
-         public UnitofWork(ApplicationDbContext context, IBookRepository bookRepository)
+        public IRepository<Product> _productRepository;
+        public IProductRepository ProductRepository{get;}
+
+        public UnitofWork(ApplicationDbContext context, IBookRepository bookRepository,IProductRepository productRepository)
          {
              _context=context ?? throw new ArgumentNullException(nameof(context));
              BookRepository=bookRepository;
+             ProductRepository=productRepository;
          }
          public void Dispose()
          {
@@ -33,6 +37,8 @@ namespace BookApi.Repository
         {
             return await _context.SaveChangesAsync();
         }
+
+
         protected virtual void Dispose(bool disposing)
         {
             if(!this.disposed)
@@ -45,9 +51,9 @@ namespace BookApi.Repository
             this.disposed=true;
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            throw new NotImplementedException();
+          return await _context.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

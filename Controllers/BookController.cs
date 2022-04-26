@@ -14,7 +14,10 @@ namespace BookApi.Controllers
 
         private readonly IValidator<BookRequestModel> _bookValidator;
 
-        public BookController(IBookServices bookServices, IValidator<BookRequestModel> bookValidator)
+        public BookController(
+            IBookServices bookServices,
+            IValidator<BookRequestModel> bookValidator
+        )
         {
             _bookService = bookServices;
             _bookValidator = bookValidator;
@@ -23,41 +26,42 @@ namespace BookApi.Controllers
         [HttpPost]
         public async Task<BookResponseModel> Add(BookRequestModel model)
         {
-            await _bookValidator.ValidateAsync(model,options => options.ThrowOnFailures()).ConfigureAwait(false);
-           var response = await _bookService.AddBookAsync(model).ConfigureAwait(false);
-           return response;
+            await _bookValidator
+                .ValidateAsync(model, options => options.ThrowOnFailures())
+                .ConfigureAwait(false);
+            var response = await _bookService.AddBookAsync(model).ConfigureAwait(false);
+            return response;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> Get()
+        public async Task<IList<BookResponseModel>> Get()
         {
-            
-            await _bookService.GetBookAsync().ConfigureAwait(false);
+            var response = await _bookService.GetBookAsync().ConfigureAwait(false);
+            return response;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<BookResponseModel> GetBookAsync(Guid id)
+        {
+            var response = await _bookService.GetBook(id).ConfigureAwait(false);
+            return response;
+        }
+
+        [HttpPut("{id}")]
+        public async Task<BookResponseModel> UpdateBookAsync(BookRequestModel model, Guid id)
+        {
+            await _bookValidator
+                .ValidateAsync(model, options => options.ThrowOnFailures())
+                .ConfigureAwait(false);
+            var response = await _bookService.UpdateBookAsync(model, id).ConfigureAwait(false);
+            return response;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook(Guid id)
+        {
+            await _bookService.DeleteBookAsync(id);
             return Ok();
-
         }
-
-        [HttpPut("{BookId}")]
-
-        public async Task<IActionResult> UpdateBookAsync( BookRequestModel model,Guid BookId)
-        {
-             await _bookValidator.ValidateAsync(model,options => options.ThrowOnFailures()).ConfigureAwait(false);
-           await _bookService.UpdateBookAsync(model).ConfigureAwait(false);
-           return Ok();
-
-        }
-
-
-        [HttpDelete("{BookId}")]
-
-        public async Task<IActionResult> DeleteBook(Guid BookId)
-        {
-            await _bookService.DeleteBookAsync(BookId);
-            return Ok();
-        }
-
-        
-
-
     }
 }

@@ -25,7 +25,7 @@ namespace BookApi.Services.Implementation
                     BookTitle = model.BookTitle,
                     AuthorName = model.AuthorName
                 };
-                _unitOfWork.BookRepository.Insert(book);
+               await _unitOfWork.BookRepository.InsertAsync(book).ConfigureAwait(false);
                 await _unitOfWork.SaveChangesAsync().ConfigureAwait(false);
                 return new BookResponseModel
                 {
@@ -42,47 +42,11 @@ namespace BookApi.Services.Implementation
             }
         }
 
-        public Task<BookResponseModel> CreateBookAsync(BookResponseModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IList<BookResponseModel>> GetBookAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<BookResponseModel> UpdateBookAsync(BookResponseModel model, Guid bookId)
-        {
-            try
-            {
-                var data = _unitOfWork.BookRepository.GetBook(bookId);
-            
-
-                if (data != null)
-                {
-            
-                    var book = new Book
-                    {
-                        BookPrice = model.BookPrice,
-                        BookTitle = model.BookTitle,
-                        AuthorName = model.AuthorName
-                    };
-                    _unitOfWork.BookRepository.Update(data);
-                   await _unitOfWork.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public async Task DeleteBookAsync(Guid bookId)
         {
             try
             {
-                var data = _unitOfWork.BookRepository.GetBook(bookId);
+                var data = await _unitOfWork.BookRepository.GetBook(bookId);
                 if (data != null)
                 {
                     _unitOfWork.BookRepository.Delete(data);
@@ -96,9 +60,70 @@ namespace BookApi.Services.Implementation
             }
         }
 
-        public Task<BookResponseModel> UpdateBook(BookResponseModel model, Guid BookId)
+        public async Task<BookResponseModel> GetBook(Guid bookId)
         {
-            throw new NotImplementedException();
+            var book = await _unitOfWork.BookRepository.GetBook(bookId).ConfigureAwait(false);
+            if (book == null)
+            {
+                throw new Exception("Book Not found");
+            }
+
+            return new BookResponseModel
+            {
+                BookId = book.BookId,
+                AuthorName = book.AuthorName,
+                BookPrice = book.BookPrice,
+                BookTitle = book.BookTitle
+            };
+        }
+
+        public async Task<IList<BookResponseModel>> GetBookAsync()
+        {
+            var books = await _unitOfWork.BookRepository.GetAllAsync().ConfigureAwait(false);
+            var response = books
+                .Select(
+                    x =>
+                        new BookResponseModel
+                        {
+                            BookId = x.BookId,
+                            BookPrice = x.BookPrice,
+                            BookTitle = x.BookTitle,
+                            AuthorName = x.AuthorName
+                        }
+                )
+                .ToList();
+            return response;
+        }
+
+        public async Task<BookResponseModel> UpdateBookAsync(BookRequestModel model, Guid BookId)
+        {
+            try
+            {
+                var book = await _unitOfWork.BookRepository.GetBook(BookId).ConfigureAwait(false);
+
+                if (book == null)
+                {
+                    throw new Exception("Book not found");
+                }
+
+                book.AuthorName = model.AuthorName;
+                book.BookPrice = model.BookPrice;
+                book.BookTitle = model.BookTitle;
+
+                _unitOfWork.BookRepository.Update(book);
+                await _unitOfWork.SaveChangesAsync().ConfigureAwait(false);
+                return new BookResponseModel
+                {
+                    BookId = book.BookId,
+                    AuthorName = book.AuthorName,
+                    BookPrice = book.BookPrice,
+                    BookTitle = book.BookTitle
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
