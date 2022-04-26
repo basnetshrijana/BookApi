@@ -18,6 +18,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddFluentValidation();
 builder.Services.AddTransient<IValidator<BookRequestModel>, BookValidator>();
 builder.Services.AddTransient<IValidator<ProductRequestModel>, ProductValidator>();
+builder.Services.AddTransient<IValidator<CategoryRequestModel>, CategoryValidator>();
+builder.Services.AddTransient<IValidator<SubCategoryRequestModel>, SubCategoryValidator>();
 builder.Services.AddTransient<IBookServices , BookServices>();
 builder.Services.AddTransient<IProductServices, ProductServices>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();

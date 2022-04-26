@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookApi.Repository
 {
-    public interface IRepository <TEntity> where TEntity:class
+    public interface IRepository<TEntity> where TEntity : class
     {
         Task<IList<TEntity>> GetAllAsync();
         TEntity Insert(TEntity entity);
@@ -15,6 +15,5 @@ namespace BookApi.Repository
         void Update(IEnumerable<TEntity> entities);
         void Delete(TEntity entity);
         void Delete(IEnumerable<TEntity> entities);
-         
     }
 }

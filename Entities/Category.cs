@@ -1,13 +1,8 @@
 namespace BookApi.Entities
 {
-    public class Category: AuditableEntity
+    public class Category : AuditableEntity
     {
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-        
-        
-        
-        
+        public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }
